@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Student Expense Tracker</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+<header class="topbar">
+    <div>
+        <h1>SmartSpend 🎓</h1>
+        <p>Smart money habits start here.</p>
+    </div>
+    <span>Student Dashboard</span>
+</header>
+
+<main class="container">
+
+    <section class="welcome">
+        <div>
+            <h2>Manage your money better!</h2>
+            <p>Track expenses, control spending and save more.</p>
+        </div>
+
+        <div>
+            <label for="budget">Monthly Budget (₹)</label>
+            <div class="budget-input">
+                <input type="number" id="budget" min="1"
+                       placeholder="Enter budget">
+                <button id="saveBudget" type="button">Save</button>
+    
+</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="summary-grid">
+        <article class="summary-card">
+            <span>Total Budget</span>
+            <h2 id="totalBudget">₹0</h2>
+        </article>
+
+        <article class="summary-card">
+            <span>Spent This Month</span>
+            <h2 id="totalSpent">₹0</h2>
+        </article>
+
+        <article class="summary-card">
+            <span>Remaining Balance</span>
+            <h2 id="remaining">₹0</h2>
+        </article>
+    </section>
+
+   <div id="budgetAlert" class="budget-alert"
+     role="status" aria-live="polite" hidden></div>
+
+    <section class="content-grid">
+        <article class="panel">
+            <h2>➕ Add New Expense</h2>
+
+            <form id="expenseForm">
+                <label for="title">Expense Name</label>
+                <input id="title" type="text"
+                       placeholder="Example: Lunch"
+                       maxlength="100" required>
+
+                <label for="category">Category</label>
+                <select id="category" required>
+                    <option value="">Select category</option>
+                    <option>Food</option>
+                    <option>Travel</option>
+                    <option>Education</option>
+                    <option>Shopping</option>
+                    <option>Entertainment</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="amount">Amount (₹)</label>
+                <input id="amount" type="number"
+                       min="0.01" max="10000000"
+                       step="0.01" required>
+
+                <label for="expenseDate">Date</label>
+                <input id="expenseDate" type="date" required>
+
+                <button class="primary-btn" type="submit">
+                    Add Expense
+                </button>
+
+                <p id="formMessage" role="status"></p>
+            </form>
+        </article>
+
+        <article class="panel">
+            <h2>📊 Monthly Spending</h2>
+            <div class="chart-box">
+                <canvas id="expenseChart"></canvas>
+            </div>
+
+            <h3>💡 Savings Suggestion</h3>
+            <p id="savingsTip">
+                Add expenses to receive savings suggestions.
+            </p>
+        </article>
+    </section>
+    <section class="panel">
+    <h2>📅 Monthly Spending Comparison</h2>
+
+    <div class="comparison-cards">
+        <div class="comparison-card">
+            <p>Previous Month</p>
+            <h3 id="previousMonthTotal">₹0</h3>
+        </div>
+
+        <div class="comparison-card">
+            <p>Current Month</p>
+            <h3 id="currentMonthTotal">₹0</h3>
+        </div>
+    </div>
+
+    <p id="monthlyComparisonMessage">
+        Add expenses to compare your monthly spending.
+    </p>
+</section>
+
+    <section class="panel weekly-report">
+    <h2>📊 Weekly Spending Report</h2>
+
+    <div class="comparison-cards">
+        <div class="comparison-card">
+            <p>Previous Week</p>
+            <h3 id="previousWeekTotal">₹0</h3>
+        </div>
+
+        <div class="comparison-card">
+            <p>Current Week</p>
+            <h3 id="currentWeekTotal">₹0</h3>
+        </div>
+    </div>
+<canvas id="weeklySpendingChart"></canvas>
+    <p id="weeklyComparisonMessage">
+        Add expenses to see your weekly report.
+    </p>
+</section>
+<section class="panel">
+    <h2>📆 Daily Spending Summary</h2>
+    <p>Today's Spending: <strong id="todaySpending">₹0</strong></p>
+    <p>Highest Spending Day: <strong id="highestSpendingDay">N/A</strong></p>
+</section>
+<section class="panel">
+    <h2>🎯 Savings Goal Tracker</h2>
+
+    <label for="savingsGoal">Savings Goal (₹)</label>
+    <input type="number" id="savingsGoal" min="1"
+           placeholder="Example: 2000">
+
+    <label for="amountSaved">Amount Saved (₹)</label>
+    <input type="number" id="amountSaved" min="0"
+           value="0">
+
+    <button type="button" id="saveGoal">Update Goal</button>
+
+    <p id="goalMessage">Set your savings goal.</p>
+
+    <progress id="goalProgress" value="0" max="100"
+              style="width:100%"></progress>
+    <p id="goalPercentage">0% completed</p>
+</section>
+<section class="panel">
+    <h2>🧾 Monthly Report Card</h2>
+    <p>Total Expenses: <strong id="reportTotal">₹0</strong></p>
+    <p>Highest Category: <strong id="reportCategory">N/A</strong></p>
+    <p>Budget Balance: <strong id="reportBalance">₹0</strong></p>
+</section>
+<section class="panel history">
+        <h2>📋 Expense History</h2>
+        <button type="button" id="downloadCsv">
+    Download Expense Report (CSV)
+</button>
+<!-- Search and Category Filter -->
+<div class="expense-filters">
+    <input
+        type="text"
+        id="searchExpense"
+        placeholder="Search by expense name..."
+        aria-label="Search expenses by name"
+    >
+
+    <select id="filterCategory" aria-label="Filter by category">
+        <option value="">All Categories</option>
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Education">Education</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Other">Other</option>
+    </select>
+</div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseList"></tbody>
+            </table>
+        </div>
+
+        <p id="emptyMessage">No expenses added yet.</p>
+    </section>
+
+</main>
+
+<footer>Smart Student Expense Tracker | Student Project</footer>
+<div id="personalPopup"
+     class="personal-popup"
+     role="status"
+     aria-live="polite"
+     hidden>
+
+    <div class="popup-heading">
+        <span>💚</span>
+        <strong>Your Budget Buddy</strong>
+        <button type="button" id="closePopup"
+                aria-label="Close">×</button>
+    </div>
+
+    <p id="personalMessage"></p>
+
+    <button type="button" id="popupOk">Got it!</button>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,395 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f6fc;
+    color: #1e293b;
+}
+
+.topbar {
+    background: #172554;
+    color: white;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.topbar h1 {
+    margin: 0 0 6px;
+}
+
+.topbar p {
+    margin: 0;
+    color: #cbd5e1;
+}
+
+.topbar span {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 10px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1150px;
+    width: 92%;
+    margin: 28px auto;
+}
+
+.welcome {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 15px #0f172a0a;
+}
+
+.welcome h2 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin: 12px 0 7px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.budget-input {
+    display: flex;
+    gap: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font: inherit;
+    background: white;
+}
+
+.budget-input input {
+    width: 170px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 15px;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 22px 0;
+}
+
+.summary-card, .panel {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px #0f172a0a;
+    min-width: 0;
+}
+
+.summary-card span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.summary-card h2 {
+    color: #1d4ed8;
+    margin-bottom: 0;
+    overflow-wrap: anywhere;
+}
+
+.alert {
+    color: #b45309;
+    font-weight: 600;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 20px;
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+#expenseForm input,
+#expenseForm select {
+    margin-bottom: 5px;
+}
+
+.primary-btn {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.chart-box {
+    position: relative;
+    height: 260px;
+    margin: 15px 0 25px;
+}
+
+#savingsTip {
+    background: #eff6ff;
+    padding: 14px;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+.history {
+    margin-top: 22px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 13px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+th {
+    color: #475569;
+    font-size: 13px;
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.delete-btn:hover {
+    background: #fecaca;
+}
+
+#emptyMessage {
+    color: #64748b;
+}
+
+footer {
+    text-align: center;
+    color: #64748b;
+    padding: 24px;
+}
+
+@media (max-width: 750px) {
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .summary-grid,
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome {
+        align-items: stretch;
+    }
+
+    .budget-input input {
+        flex: 1;
+        min-width: 0;
+    }
+}
+/* Weekly Spending Report */
+#weeklyComparisonMessage {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f0f5ff;
+    border-radius: 8px;
+    color: #334155;
+    line-height: 1.5;
+}
+
+#previousWeekTotal,
+#currentWeekTotal {
+    color: #2563eb;
+    font-weight: bold;
+}
+
+#previousWeekTotal,
+#currentWeekTotal {
+    margin-top: 8px;
+}
+.weekly-report {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+.weekly-report .comparison-cards {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.weekly-report .comparison-card {
+    flex: 1;
+    min-width: 150px;
+}
+/* Budget Alert System */
+.budget-alert {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.budget-alert.warning {
+    background: #fff7ed;
+    color: #9a3412;
+    border: 1px solid #fdba74;
+}
+
+.budget-alert.danger {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.budget-alert.success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+.budget-alert {
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.budget-alert.success {
+    background: #e8f8ee;
+    color: #176b37;
+    border: 1px solid #b7e4c7;
+}
+
+.budget-alert.warning {
+    background: #fff6df;
+    color: #805b00;
+    border: 1px solid #f3d27a;
+}
+
+.budget-alert.danger {
+    background: #fff0f0;
+    color: #a12626;
+    border: 1px solid #f0b6b6;
+}
+.personal-popup {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    box-sizing: border-box;
+    padding: 18px;
+    background: white;
+    color: #243047;
+    border: 1px solid #b7e4c7;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+    z-index: 99999;
+}
+
+.personal-popup[hidden] {
+    display: none !important;
+}
+
+.popup-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.popup-heading strong {
+    flex: 1;
+}
+
+#personalMessage {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#popupOk {
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    cursor: pointer;
+}
+
+.personal-popup[hidden] {
+    display: none;
+}
+
+.popup-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.popup-heading strong {
+    flex: 1;
+}
+
+.popup-heading button {
+    border: none;
+    background: transparent;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+#personalMessage {
+    line-height: 1.6;
+}
+
+#popupOk {
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    cursor: pointer;
+}
